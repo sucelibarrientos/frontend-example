@@ -1,7 +1,7 @@
 //en la importacion tambien podes usar destructuring {useState}
 import { useState } from "react";
 import ButtonCalculator from "./components/ButtonCalculator";
-import "./caluladora.css";
+import "./calculadora.css";
 
 function App() {
   const [calculador, setCalculador] = useState(0);
@@ -60,8 +60,8 @@ function App() {
     setCalculador(String(eval(calculador)));
   };
   return (
-    <div>
-      <form onSubmit={onSubmit}>
+    <div className="contenerdor-principal">
+      <form onSubmit={onSubmit} className="calculadora">
         <h3>{calculador}</h3>
         <br />
         <ButtonCalculator action={addValor} value={1} text="1"/>
@@ -84,7 +84,7 @@ function App() {
         <ButtonCalculator action={reset} text="C"/>
         <ButtonCalculator action={igual} text="="/>
         <br />
-        <button onClick={deleteValor}>{"<="}</button>
+        <button className="calculadora-button2" onClick={deleteValor}>{"<="}</button>
       </form>
     </div>
   );

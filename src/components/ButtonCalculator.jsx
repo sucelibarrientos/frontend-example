@@ -1,7 +1,7 @@
 function ButtonCalculator(props) {
   const { action, value, text } = props; //destructuring
   return (
-    <button onClick={action} value={value}>
+    <button className="calculadora-button1" onClick={action} value={value}>
       {text}
     </button>
   );
