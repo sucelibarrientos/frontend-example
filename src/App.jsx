@@ -1,6 +1,7 @@
 //en la importacion tambien podes usar destructuring {useState}
 import { useState } from "react";
 import ButtonCalculator from "./components/ButtonCalculator";
+import "./caluladora.css";
 
 function App() {
   const [calculador, setCalculador] = useState(0);
