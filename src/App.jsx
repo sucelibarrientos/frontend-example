@@ -1,57 +1,90 @@
+//en la importacion tambien podes usar destructuring {useState}
 import { useState } from "react";
-//importacion de componentes
-import Contador from "./components/Contador";
-import Boton from "./components/Boton";
+import ButtonCalculator from "./components/ButtonCalculator";
 
 function App() {
-  //logica del componente
-  let total = 100;
-  //numero accede al estado
-  //setNumero modifica el estado
-  const [numero, setNumero] = useState(100);
-  const sumar = () => {
-    console.log("sumar");
-    total = total + 1; //es instanteaneo
-    setNumero(numero + 1); //es asincrono
-    console.log("total:", total);
-    console.log("numero:", numero);
+  const [calculador, setCalculador] = useState(0);
+  const addValor = (e) => {
+    //console.log("numero");
+    //console.log(e.target.value);
+    if (calculador == 0) {
+      setCalculador(e.target.value);
+    } else {
+      setCalculador(calculador + e.target.value);
+    }
   };
-  function restar() {
-    console.log("restar");
-    total = total - 1;
-    setNumero(numero - 1);
-    console.log("total:", total);
-    console.log("numero:", numero);
-  }
+  const onSubmit = (event) => {
+    event.preventDefault();
+  };
+  const reset = () => {
+    setCalculador(0);
+  };
+  const deleteValor = () => {
+    if (calculador.length == 1) {
+      setCalculador(0);
+    } else {
+      setCalculador(calculador.slice(0, -1));
+    }
+  };
+  const revisarSiExisteOperador = (valor) => {
+    //si existe un operador devuelve true
+    //si no existe un operador devuelve false
+    if (valor.includes("+")) {
+      return true;
+    }
+    if (valor.includes("-")) {
+      return true;
+    }
+    if (valor.includes("/")) {
+      return true;
+    }
+    if (valor.includes("*")) {
+      return true;
+    }
+    return false;
+  };
+  const addOperador = (e) => {
+    //errores:
+    //no se puede poner un operador al principio
+    //no se puede poner un operador si ya hay uno
+    //no se puede poner un operador si el ultimo es un operador
+    if (calculador != 0) {
+      const revision = revisarSiExisteOperador(calculador);
+      if (revision == false) {
+        setCalculador(calculador + e.target.value);
+      }
+    }
+  };
+  const igual = () => {
+    setCalculador(String(eval(calculador)));
+  };
   return (
     <div>
-      <Contador total={total} numero={numero} />
-      {/* <button onClick={sumar}>sumar</button>
-      <button onClick={restar}>restar</button> */}
-      <Boton
-        texto="Sumar 1"
-        numeroDeOperacion={1}
-        setNumero={setNumero}
-        numero={numero}
-      />
-      <Boton
-        texto="Sumar 10"
-        numeroDeOperacion={10}
-        setNumero={setNumero}
-        numero={numero}
-      />
-      <Boton
-        texto="Restar 1"
-        numeroDeOperacion={-1}
-        setNumero={setNumero}
-        numero={numero}
-      />
-      <Boton
-        texto="Restar 10"
-        numeroDeOperacion={-10}
-        setNumero={setNumero}
-        numero={numero}
-      />
+      <form onSubmit={onSubmit}>
+        <h3>{calculador}</h3>
+        <br />
+        <ButtonCalculator action={addValor} value={1} text="1"/>
+        <ButtonCalculator action={addValor} value={2} text="2"/>
+        <ButtonCalculator action={addValor} value={3} text="4"/>
+        <ButtonCalculator action={addOperador} value="+" text="+"/>
+        <br />
+        <ButtonCalculator action={addValor} value={4} text="4"/>
+        <ButtonCalculator action={addValor} value={5} text="5"/>
+        <ButtonCalculator action={addValor} value={6} text="6"/>
+        <ButtonCalculator action={addOperador} value="-" text="-"/>
+        <br />
+        <ButtonCalculator action={addValor} value={7} text="7"/>
+        <ButtonCalculator action={addValor} value={8} text="8"/>
+        <ButtonCalculator action={addValor} value={9} text="9"/>
+        <ButtonCalculator action={addOperador} value="*" text="x"/>
+        <br />
+        <ButtonCalculator action={addValor} value={0} text="0"/>
+        <ButtonCalculator action={addOperador} value="/" text="/"/>
+        <ButtonCalculator action={reset} text="C"/>
+        <ButtonCalculator action={igual} text="="/>
+        <br />
+        <button onClick={deleteValor}>{"<="}</button>
+      </form>
     </div>
   );
 }
