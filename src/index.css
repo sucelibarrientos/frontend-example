@@ -12,3 +12,15 @@ body {
   margin: 0;
   padding: 0;
 }
+@font-face {
+  font-family: 'LibreFranklin-Bold';
+  src: url('./../public/fonts/LibreFranklin-Bold.ttf');
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'LibreFranklin-Regular';
+  src: url('./../public/fonts/LibreFranklin-Regular.ttf');
+  font-style: normal;
+  font-display: swap;
+}
